@@ -17,7 +17,8 @@ func C_InsertNewUsers(w http.ResponseWriter, r *http.Request) {
 	_ = json.NewDecoder(r.Body).Decode(&InsertUsers)
 	validasi := libs.CobaValidator(InsertUsers)
 	//melakukan hashing dengan bcrypt
-	hash_pwd, _ := libs.HashPassword(InsertUsers.Usr_password)
+	hash_pwd, _ := libs.HashBcryptPassword(InsertUsers.Usr_password)
+	//hash_pwd := libs.HashMD5Password(InsertUsers.Usr_password)
 	InsertUsers.Usr_password = hash_pwd //value password dirubah jadi bentuk hash
 	if len(validasi) > 0 {
 		outputError.Status = "error"

@@ -1,28 +1,31 @@
 package libs
 
 import (
-	//"fmt"
+	"fmt"
+
+	"crypto/md5"
+	"encoding/hex"
 
 	"golang.org/x/crypto/bcrypt"
 )
 
-func HashPassword(password string) (string, error) {
+//fungsi bcrypt
+func HashBcryptPassword(password string) (string, error) { //algoritma bcrypt berjalan lebih lambat daripada md5
 	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
 	return string(bytes), err
+}
+
+//fungsi MD5
+func HashMD5Password(password string) string {
+	hashString := []byte(password)
+
+	hash_value := md5.Sum(hashString)
+	fmt.Printf("hasil md5: %x", md5.Sum(hashString))
+	//bytes := md5.Sum([]byte(password))
+	return hex.EncodeToString(hash_value[:])
 }
 
 func CheckPasswordHash(password, hash string) bool {
 	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
 	return err == nil
 }
-
-// func main() {
-// 	password := "secret"
-// 	hash, _ := HashPassword(password) // ignore error for the sake of simplicity
-
-// 	fmt.Println("Password:", password)
-// 	fmt.Println("Hash:    ", hash)
-
-// 	match := CheckPasswordHash(password, hash)
-// 	fmt.Println("Match:   ", match)
-// }

@@ -21,7 +21,6 @@ func HashMD5Password(password string) string {
 
 	hash_value := md5.Sum(hashString)
 	fmt.Printf("hasil md5: %x", md5.Sum(hashString))
-	//bytes := md5.Sum([]byte(password))
 	return hex.EncodeToString(hash_value[:])
 }
 

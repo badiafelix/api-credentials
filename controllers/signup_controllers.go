@@ -29,6 +29,7 @@ func C_InsertNewUsers(w http.ResponseWriter, r *http.Request) {
 		if isValid != true {
 			output.Status = "error"
 			output.Message = errorMessage.Error.Error()
+			w.WriteHeader(409) // membuat custom response code
 		} else {
 			checkData, isValid, errorMessage := models.GetUsersById(InsertUsers.Usr_email)
 			if isValid != true {
@@ -37,6 +38,7 @@ func C_InsertNewUsers(w http.ResponseWriter, r *http.Request) {
 				output.Status = "success"
 				output.Message = ""
 				output.Data = *checkData
+				w.WriteHeader(201) // membuat custom response code
 			}
 
 		}

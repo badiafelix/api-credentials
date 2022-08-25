@@ -12,8 +12,24 @@ import (
 
 //fungsi bcrypt
 func HashBcryptPassword(password string) (string, error) { //algoritma bcrypt berjalan lebih lambat daripada md5
-	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
+	//bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
+	bytes, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.MinCost)
 	return string(bytes), err
+}
+
+func CompareBcrypt(hash1, hash2 []byte) bool { //dalam bcrypt compare hnay bisa antara hash dengna plaintext
+	fmt.Println("isi hash 1", hash1)
+	fmt.Println("isi hash 2", hash2)
+	var flag bool
+	err := bcrypt.CompareHashAndPassword(hash1, hash2)
+
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println("success sama")
+		flag = true
+	}
+	return flag
 }
 
 //fungsi MD5

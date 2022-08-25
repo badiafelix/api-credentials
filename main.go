@@ -14,6 +14,7 @@ func main() {
 
 	r := mux.NewRouter()
 	r.HandleFunc("/signup", controllers.C_InsertNewUsers).Methods("POST")
+	r.HandleFunc("/signin", controllers.C_GetUserAuth).Methods("POST")
 	// r.HandleFunc("/pahlawan/{name}", controllers.C_GetSuperheroById).Methods("GET")
 	// r.HandleFunc("/pahlawan", controllers.C_InsertSuperhero).Methods("POST")
 	// r.HandleFunc("/pahlawan", controllers.C_UpdateSuperhero).Methods("PUT")

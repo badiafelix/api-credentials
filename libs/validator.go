@@ -44,6 +44,27 @@ func CobaValidator(params models.Users) string {
 	return errorMsg
 }
 
+func ValidatorSignin(params models.Login) string {
+	var errorMsg string
+	en := en.New()
+	uni = ut.New(en, en)
+	trans, _ := uni.GetTranslator("en")
+	validate = validator.New()
+	InputValidation(trans)
+	err := validate.Struct(params)
+	if err != nil {
+
+		errs := err.(validator.ValidationErrors)
+		for _, e := range errs {
+			// can translate each error one at a time.
+			fmt.Println(e.Translate(trans))
+			errorMsg = e.Translate(trans)
+		}
+	}
+
+	return errorMsg
+}
+
 func InputValidation(trans ut.Translator) {
 
 	// Membuka file json

@@ -13,12 +13,9 @@ import (
 func main() {
 
 	r := mux.NewRouter()
-	r.HandleFunc("/signup", controllers.C_InsertNewUsers).Methods("POST")
-	r.HandleFunc("/signin", controllers.C_GetUserAuth).Methods("POST")
-	// r.HandleFunc("/pahlawan/{name}", controllers.C_GetSuperheroById).Methods("GET")
-	// r.HandleFunc("/pahlawan", controllers.C_InsertSuperhero).Methods("POST")
-	// r.HandleFunc("/pahlawan", controllers.C_UpdateSuperhero).Methods("PUT")
-	// r.HandleFunc("/pahlawan/{name}", controllers.C_DeleteSuperheroById).Methods("DELETE")
+	r.HandleFunc("/users/signup", controllers.C_InsertNewUsers).Methods("POST")
+	r.HandleFunc("/users/login", controllers.C_GetUserAuth).Methods("POST")
+	// r.HandleFunc("/pahlawan/{name}", controllers.C_Getsomething).Methods("GET")
 
 	fmt.Printf("Starting server at port 8082\n")
 	log.Fatal(http.ListenAndServe(":8082", r))
